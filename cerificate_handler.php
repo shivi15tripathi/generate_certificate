@@ -38,7 +38,7 @@ try {
             $githubUsername = 'shivi15tripathi';
             $repositoryName = 'generate_certificate';
             // Redirect to LinkedIn for sharing
-            $redirectUrl = 'https://www.linkedin.com/&redirect_uri=https://raw.githubusercontent.com/$githubUsername/$repositoryName/main/download/certificate_$userId.pdf';
+            $redirectUrl = 'recipientEmail/&redirect_uri=https://raw.githubusercontent.com/$githubUsername/$repositoryName/main/download/certificate_$userId.pdf';
             $redirectUrl .= '&shareoff=' . urlencode($linkedinShareUrl);
             header('Location: ' . $redirectUrl);
             exit();

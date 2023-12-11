@@ -82,8 +82,8 @@ require 'config.php';
         <label for="whatsappNumber">WhatsApp Number:</label>
         <input type="tel" id="whatsappNumber" name="whatsappNumber">
 
-        <label for="linkedinUrl">LinkedIn URL:</label>
-        <input type="url" id="linkedinUrl" name="linkedinUrl">
+        <!-- <label for="linkedinUrl">LinkedIn URL:</label>
+        <input type="url" id="linkedinUrl" name="linkedinUrl"> -->
 
         <label for="course">Course</label>
         <input type="text" id="course" name="course">
