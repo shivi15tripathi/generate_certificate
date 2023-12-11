@@ -36,7 +36,7 @@ try {
             // ... (your existing email sending code)
 
             $githubUsername = 'shivi15tripathi';
-            $repositoryName = 'hello';
+            $repositoryName = 'generate_certificate';
             // Redirect to LinkedIn for sharing
             $redirectUrl = 'https://www.linkedin.com/&redirect_uri=https://raw.githubusercontent.com/$githubUsername/$repositoryName/main/download/certificate_$userId.pdf';
             $redirectUrl .= '&shareoff=' . urlencode($linkedinShareUrl);

@@ -130,7 +130,7 @@
             $pdf->SetProtection($permissions, '', null, 0, null);
             $pdf->Output($pdfPath, 'F');
             $githubUsername = 'shivi15tripathi';
-            $repositoryName = 'hello';
+            $repositoryName = 'generate_certificate';
 
             // Send email
             try {
