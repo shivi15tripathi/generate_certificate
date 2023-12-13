@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.269/pdf_viewer.min.css"> -->
+    <title>Document</title>
+    <style>
+        #canvas_container
+        {
+            width: 1250px;
+            height: 450px;
+            margin: auto;
+            overflow: auto;
+            background-color: black;
+            text-align: center;
+            border: 3px solid blue;
+        }
+        #navigation-control {
+        margin-top: 10px;
+        text-align: center;
+      }
+
+      #navigation-control button,
+      #navigation-control input {
+        margin: 5px;
+        padding: 8px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      #zoom-control {
+        margin-top: 10px;
+        text-align: center;
+      }
+
+      #zoom-control button {
+        margin: 5px;
+        padding: 8px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="my_pdf_viewer">
+      <div id="canvas_container">
+        <canvas id="pdf_renderer"></canvas>
+      </div>
+    </div>
+    <div id="navigation-control">
+      <button id="go_previous">Previous</button>
+      <label for="current_page">Page</label>
+      <input type="number" value="1" id="current_page">
+      <button id="go_next">Next</button>
+    </div>
+    <div id="zoom-control">
+      <button id="zoom_in">+</button>
+      <button id="zoom_out">-</button>
+    </div>
+    <script>
+      var mystate = {
+        pdf: null,
+        currentPage: 1,
+        zoom: 1,
+      };
+
+      pdfjsLib.getDocument("certificate_5.pdf").promise.then((pdf) => {
+        mystate.pdf = pdf;
+        render();
+      });
+
+      function render() {
+        mystate.pdf.getPage(mystate.currentPage).then((page) => {
+          var canvas = document.getElementById("pdf_renderer");
+          var ctx = canvas.getContext("2d");
+          var viewport = page.getViewport({ scale: mystate.zoom });
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          page.render({
+            canvasContext: ctx,
+            viewport: viewport,
+          });
+        });
+      }
+      document.getElementById('go_previous')
+      .addEventListener('click',(e)=>{
+        if (mystate.pdf==null || mystate.currentPage==1)return;
+
+        mystate.currentPage=mystate.currentPage-1;
+
+        document.getElementById("current_page").value=mystate.currentPage;
+
+        render()
+      })
+
+      document.getElementById("go_next")
+      .addEventListener('click',(e)=>{
+        if (mystate.pdf == null || mystate.currentPage > mystate.pdf._pdfInfo.numPages)return;
+        
+        mystate.currentPage=mystate.currentPage+1;
+
+        document.getElementById("current_page").value=mystate.currentPage;
+
+        render();
+      })
+
+      document.getElementById('zoom_in')
+      .addEventListener('click',(e)=>{
+        if(mystate.pdf==null) return;
+        mystate.zoom=mystate.zoom+0.5;
+        render();
+      })
+
+      document.getElementById('zoom_out')
+      .addEventListener('click',(e)=>{
+        if(mystate.pdf==null) return;
+        mystate.zoom=mystate.zoom-0.5;
+        render();
+      })
+    </script>
+  </body>
+</html>
